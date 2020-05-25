@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+  <!-- Page Content -->
+  <div class="col-lg-8">
+        <!-- Title -->
+        <h1 class="mt-4">{{object.title }}</h1>
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{object.author.user.username}}</a>
+        </p>
+        <hr>
+        <!-- Date/Time -->
+        <p>{{object.timestamp}}{{object.created_by}}</p>
+        <hr>
+
+        {% if request.user.is_authenticated %}
+        {% if request.user == object.author.user %}
+        <p><a href="{% url 'posts:post-update' object.id %}">Update</a><a href="{% url 'posts:post-delete' object.id %}">Delete</a></p>
+        <p></p>
+        {% endif %}
+        {% endif %}
+        <p>{{object.text}}</p>
+        <hr>
+
+          <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+                {{object.frm}}
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+         <!-- Single Comment -->
+         {% for comment in comments%}
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">{{comment.created_by}}</h5>
+            
+            {{comment.textarea}}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% endblock %}
+
+
+         {% block sidebar %}
+        {% include 'sidebar.html' %}
+        {% endblock %}
+ {% block footer %}
+      {% include 'footer.html' %}
+      {% endblock %}
+
+
+
+
+
+
+

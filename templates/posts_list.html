@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Page Content -->
+
+ <div class="col-lg-8">
+ 
+        {% for obj in object_list%}
+        <!-- Title -->
+                <h1 class="mt-4">{{obj.title }}</h1>
+
+        <!-- Author -->
+                <p class="lead">
+          by
+          {{obj.author.user.username}} 
+        </p>
+
+        <hr>
+        <!-- Date/Time -->
+        <p class="text-muted">{{obj.timestamp}}</p>
+        <hr>
+      
+        
+        <!-- Preview Image -->
+        <!-- Post Content -->
+      
+        <p>{{obj.text|truncatewords:40}}</p>
+        
+        <a href="{{obj.get_absolute_url}}">Read more ..</a>
+        <hr>
+
+        {% endfor%}
+</div>
+
+      {% endblock %}
+
+
+      {% block sidebar %}
+
+      {% include 'sidebar.html'  %}
+
+
+      {% endblock %}
+
+      {% block footer %}
+      {% include 'footer.html' %}
+      {% endblock %}
+
+
+
+  
